@@ -78,4 +78,4 @@ if __name__ == '__main__':
     if cosine_sim is not None and vectorizer is not None and alumni_df is not None and not alumni_df.empty:
         app.run(host='0.0.0.0', port=5000, debug=True)  # Running on port 5000
     else:
-        print("❌ Flask app cannot run without loading the model or data.")
+        print("❌ Flask app cannot run without loading the model or data.") 

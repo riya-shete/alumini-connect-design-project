@@ -1,30 +1,15 @@
-import os
-import json
-from dotenv import load_dotenv
+# train_model.py
+import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import joblib
 import firebase_admin
 from firebase_admin import credentials, db
 
-# Load environment variables
-load_dotenv()
-
-# Construct the credentials dictionary
-firebase_credentials = {
-    "type": os.getenv("FIREBASE_TYPE"),
-    "project_id": os.getenv("FIREBASE_PROJECT_ID"),
-    "private_key_id": os.getenv("FIREBASE_PRIVATE_KEY_ID"),
-    "private_key": os.getenv("FIREBASE_PRIVATE_KEY").replace('\\n', '\n'),
-    "client_email": os.getenv("FIREBASE_CLIENT_EMAIL"),
-    "client_id": os.getenv("FIREBASE_CLIENT_ID"),
-    "auth_uri": os.getenv("FIREBASE_AUTH_URI"),
-    "token_uri": os.getenv("FIREBASE_TOKEN_URI"),
-    "auth_provider_x509_cert_url": os.getenv("FIREBASE_AUTH_PROVIDER_X509_CERT_URL"),
-    "client_x509_cert_url": os.getenv("FIREBASE_CLIENT_X509_CERT_URL"),
-}
-
-# Initialize Firebase
-cred = credentials.Certificate(firebase_credentials)
+# Initialize Firebase with the correct URL
+cred = credentials.Certificate("C:/Users/Me/Desktop/dpf/alumni/backend/alumni-connect-firebase-adminsdk.json")
 firebase_admin.initialize_app(cred, {
-    'databaseURL': os.getenv("FIREBASE_DATABASE_URL")
+    'databaseURL': 'https://alumni-connect-e6848-default-rtdb.firebaseio.com'
 })
 
 def prepare_user_data(user_data):
@@ -143,3 +128,4 @@ if __name__ == "__main__":
                 print(f"   Match: {rec['similarity_score']}%")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
+
